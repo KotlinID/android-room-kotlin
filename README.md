@@ -1,2 +1,2 @@
-# android-room-kotlin
+# Android Room for Kotlin
 Android Architecture - Room using Kotlin
