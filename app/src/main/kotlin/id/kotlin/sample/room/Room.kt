@@ -9,11 +9,14 @@ import android.arch.persistence.room.Room as RoomDB
 
 class Room : Application() {
 
+    companion object {
+        lateinit var database: Database
+    }
+
     override fun onCreate() {
         super.onCreate()
 
-        val database = RoomDB.databaseBuilder(this, objectOf<Database>(), "room_sample.db")
-        database.build()
+        database = RoomDB.databaseBuilder(this, objectOf<Database>(), "room_sample.db").build()
     }
 
     override fun attachBaseContext(base: Context?) {
