@@ -6,4 +6,8 @@
     <string name="hint_firstname">Firstname</string>
     <string name="hint_lastname">Lastname</string>
     <string name="button_add">Create New User</string>
+    <string name="dialog_title_delete">Delete User</string>
+    <string name="dialog_desc_delete">Are you sure want to delete this User ?</string>
+    <string name="message_create_user">Please input your Fullname!</string>
+    <string name="message_delete_user">Successful delete a User&#8230;</string>
 </resources>

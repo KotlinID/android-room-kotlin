@@ -12,7 +12,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
 import kotlinx.coroutines.experimental.async
+import org.jetbrains.anko.alert
 import org.jetbrains.anko.coroutines.experimental.bg
+import org.jetbrains.anko.ctx
 import org.jetbrains.anko.startActivityForResult
 import org.jetbrains.anko.toast
 
@@ -43,8 +45,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            200 -> loadUser()
+        when (resultCode) {
+            RESULT_OK -> when (requestCode) {
+                200 -> loadUser()
+            }
         }
 
         super.onActivityResult(requestCode, resultCode, data)
@@ -77,12 +81,34 @@ class MainActivity : AppCompatActivity() {
     private fun showUsers(users: List<User>) {
         toast("Total user: ${users.size}")
 
-        val adapter = MainAdapter(users)
+        val adapter = MainAdapter(users, object : MainListener {
+            override fun onItemClick(user: User) {
+                val title = ctx.getString(R.string.dialog_title_delete)
+                val message = ctx.getString(R.string.dialog_desc_delete)
+
+                alert(message, title) {
+                    positiveButton(ctx.getString(android.R.string.ok)) { deleteUser(user) }
+                    negativeButton(ctx.getString(android.R.string.no)) {}
+                }.show()
+            }
+        })
         itemMain.adapter = adapter
         adapter.notifyDataSetChanged()
     }
 
     private fun addUser() {
         startActivityForResult<AddActivity>(200)
+    }
+
+    private fun deleteUser(user: User) {
+        async(UI) {
+            bg {
+                val dao = Room.database.userDao()
+                dao.deleteUser(user)
+                loadUser()
+            }
+
+            toast(ctx.getString(R.string.message_delete_user))
+        }
     }
 }
