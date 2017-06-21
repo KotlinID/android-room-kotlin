@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Room</string>
+    <string name="action_add">Add</string>
+    <string name="title_add">Create User</string>
+    <string name="hint_firstname">Firstname</string>
+    <string name="hint_lastname">Lastname</string>
+    <string name="button_add">Create New User</string>
 </resources>

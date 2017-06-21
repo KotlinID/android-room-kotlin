@@ -13,9 +13,9 @@ class MainAdapter constructor(private var users: List<User>) : RecyclerView.Adap
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): MainHolder = MainHolder(LayoutInflater.from(parent?.context).inflate(R.layout.item_main, parent, false))
 
-    override fun onBindViewHolder(holder: MainHolder?, position: Int) {
-        val user = users[position]
-        holder?.bind(user)
+    override fun onBindViewHolder(holder: MainHolder, position: Int) {
+        val user = users[holder.adapterPosition]
+        holder.bind(user)
     }
 
     override fun getItemCount(): Int = users.size
@@ -27,7 +27,7 @@ class MainAdapter constructor(private var users: List<User>) : RecyclerView.Adap
                 val firstName = user.firstName
                 val lastname = user.lastName
 
-                itemView.tvItemMain.text = firstName.plus(" ").plus(lastname)
+                itemView.textItemMain.text = firstName.plus(" ").plus(lastname)
             }
         }
     }
