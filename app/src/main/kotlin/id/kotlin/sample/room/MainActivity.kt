@@ -23,6 +23,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         toolbarMain.title = title
         setSupportActionBar(toolbarMain)
+
+        val layoutManager = LinearLayoutManager(this)
+        itemMain.layoutManager = layoutManager
         loadUser()
     }
 
@@ -74,9 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun showUsers(users: List<User>) {
         toast("Total user: ${users.size}")
 
-        val layoutManager = LinearLayoutManager(this@MainActivity)
         val adapter = MainAdapter(users)
-        itemMain.layoutManager = layoutManager
         itemMain.adapter = adapter
         adapter.notifyDataSetChanged()
     }
