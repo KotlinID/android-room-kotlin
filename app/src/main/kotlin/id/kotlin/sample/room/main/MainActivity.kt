@@ -1,4 +1,4 @@
-package id.kotlin.sample.room
+package id.kotlin.sample.room.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,8 +6,13 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.Menu
 import android.view.MenuItem
+import id.kotlin.sample.room.R
+import id.kotlin.sample.room.Room
+import id.kotlin.sample.room.create.AddActivity
 import id.kotlin.sample.room.data.User
+import id.kotlin.sample.room.data.UserModel
 import id.kotlin.sample.room.extensions.getId
+import id.kotlin.sample.room.update.EditActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.coroutines.experimental.Deferred
 import kotlinx.coroutines.experimental.android.UI
@@ -23,6 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
         toolbarMain.title = title
         setSupportActionBar(toolbarMain)
 
@@ -48,6 +54,7 @@ class MainActivity : AppCompatActivity() {
         when (resultCode) {
             RESULT_OK -> when (requestCode) {
                 200 -> loadUser()
+                201 -> loadUser()
             }
         }
 
@@ -56,10 +63,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun loadUser() {
         async(UI) {
-            val users: Deferred<List<User>> = bg {
-                getUsers()
-            }
-
+            val users: Deferred<List<User>> = bg { getUsers() }
             showUsers(users.await())
         }
     }
@@ -79,16 +83,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showUsers(users: List<User>) {
-        toast("Total user: ${users.size}")
+        toast(ctx.getString(R.string.message_total_user).plus(": ${users.size}"))
 
         val adapter = MainAdapter(users, object : MainListener {
             override fun onItemClick(user: User) {
+                val data = UserModel(user.id, user.firstName, user.lastName)
+                startActivityForResult<EditActivity>(201, "Data" to data)
+            }
+
+            override fun onItemLongClick(user: User) {
                 val title = ctx.getString(R.string.dialog_title_delete)
                 val message = ctx.getString(R.string.dialog_desc_delete)
 
                 alert(message, title) {
                     positiveButton(ctx.getString(android.R.string.ok)) { deleteUser(user) }
-                    negativeButton(ctx.getString(android.R.string.no)) {}
+                    negativeButton(ctx.getString(android.R.string.no)) { }
                 }.show()
             }
         })

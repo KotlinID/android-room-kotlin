@@ -1,12 +1,13 @@
-package id.kotlin.sample.room
+package id.kotlin.sample.room.main
 
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.RecyclerView.ViewHolder
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import id.kotlin.sample.room.MainAdapter.MainHolder
+import id.kotlin.sample.room.R
 import id.kotlin.sample.room.data.User
+import id.kotlin.sample.room.main.MainAdapter.MainHolder
 import kotlinx.android.synthetic.main.item_main.view.*
 
 class MainAdapter constructor(private var users: List<User>,
@@ -27,10 +28,11 @@ class MainAdapter constructor(private var users: List<User>,
                  listener: MainListener) {
             with(user) {
                 val firstName = user.firstName
-                val lastname = user.lastName
+                val lastName = user.lastName
 
-                itemView.textItemMain.text = firstName.plus(" ").plus(lastname)
-                itemView.layoutItemMain.setOnLongClickListener { listener.onItemClick(user); true }
+                itemView.textItemMain.text = firstName.plus(" ").plus(lastName)
+                itemView.layoutItemMain.setOnClickListener { listener.onItemClick(user) }
+                itemView.layoutItemMain.setOnLongClickListener { listener.onItemLongClick(user); true }
             }
         }
     }

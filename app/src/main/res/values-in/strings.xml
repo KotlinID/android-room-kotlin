@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Room</string>
+    <string name="action_add">Tambah</string>
+    <string name="title_add">Tambah Pengguna</string>
+    <string name="title_edit">Ubah Data</string>
+    <string name="hint_firstname">Nama depan</string>
+    <string name="hint_lastname">Nama belakang</string>
+    <string name="button_add">Tambah Pengguna Baru</string>
+    <string name="button_edit">Ubdah</string>
+    <string name="dialog_title_delete">Hapus</string>
+    <string name="dialog_desc_delete">Apa kamu yakin ingin menghapus pengguna ini ?</string>
+    <string name="message_total_user">Jumlah pengguna</string>
+    <string name="message_create_user">Silahkan masukkan Nama Lengkap!</string>
+    <string name="message_delete_user">Berhasil hapus data pengguna&#8230;</string>
+</resources>

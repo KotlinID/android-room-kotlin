@@ -1,10 +1,12 @@
-package id.kotlin.sample.room
+package id.kotlin.sample.room.create
 
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.app.AppCompatDelegate
 import android.view.MenuItem
+import id.kotlin.sample.room.R
+import id.kotlin.sample.room.Room
 import id.kotlin.sample.room.data.User
 import id.kotlin.sample.room.extensions.getId
 import kotlinx.android.synthetic.main.activity_add.*
@@ -24,12 +26,28 @@ class AddActivity : AppCompatActivity() {
         toolbarAdd.title = title
         toolbarAdd.navigationIcon = ContextCompat.getDrawable(this, R.drawable.bg_arrow_back)
         setSupportActionBar(toolbarAdd)
+        addButtonListener()
+    }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        setResult(RESULT_CANCELED)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> onBackPressed()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun addButtonListener() {
         btnAdd.setOnClickListener {
             val firstName = editFirstname.text.toString()
             val lastName = editLastname.text.toString()
 
-            if (firstName.isNotEmpty() && lastName.isNotEmpty()) {
+            if (firstName.isNotEmpty().and(lastName.isNotEmpty())) {
                 async(UI) {
                     bg {
                         val dao = Room.database.userDao()
@@ -43,20 +61,6 @@ class AddActivity : AppCompatActivity() {
             } else {
                 toast(ctx.getString(R.string.message_create_user))
             }
-
         }
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            android.R.id.home -> onBackPressed()
-        }
-
-        return super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        setResult(RESULT_CANCELED)
     }
 }
