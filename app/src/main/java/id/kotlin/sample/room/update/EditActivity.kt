@@ -46,7 +46,7 @@ class EditActivity : AppCompatActivity() {
     }
 
     private fun loadUser() {
-        data = intent.getParcelableExtra<UserModel>("Data")
+        data = intent.getParcelableExtra("Data")
         textFirstname.setText(data.firstName)
         textLastname.setText(data.lastName)
     }

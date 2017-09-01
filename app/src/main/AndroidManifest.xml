@@ -1,17 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
           package="id.kotlin.sample.room">
 
     <application
-        android:name=".Room"
+        android:name="id.kotlin.sample.room.Room"
         android:allowBackup="true"
+        android:fullBackupContent="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
 
         <activity
-            android:name=".main.MainActivity"
+            android:name="id.kotlin.sample.room.main.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,11 +21,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".create.AddActivity"
+            android:name="id.kotlin.sample.room.create.AddActivity"
             android:label="@string/title_add"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".update.EditActivity"
+            android:name="id.kotlin.sample.room.update.EditActivity"
             android:label="@string/title_edit"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" />

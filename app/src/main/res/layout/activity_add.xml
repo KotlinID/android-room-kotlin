@@ -4,7 +4,7 @@
                                                  xmlns:tools="http://schemas.android.com/tools"
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
-                                                 tools:context=".create.AddActivity">
+                                                 tools:context="id.kotlin.sample.room.create.AddActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
